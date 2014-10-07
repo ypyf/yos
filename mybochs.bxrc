@@ -1,0 +1,18 @@
+#=======================================================================
+# bochs configuration for osdev experiment 
+#=======================================================================
+
+# ROM and VGA BIOS images
+romimage: file=$BXSHARE/BIOS-bochs-latest
+vgaromimage: file=$BXSHARE/VGABIOS-lgpl-latest
+
+# boot from floppy using our disk image
+floppya: 1_44=boot.img, status=inserted
+
+# logging and reporting
+log: osdev_log.txt
+error: action=report
+info: action=report
+
+
+
