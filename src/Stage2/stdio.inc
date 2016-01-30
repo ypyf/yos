@@ -2,7 +2,7 @@
 ;	stdio.inc
 ;		- Input/Output routines
 ;
-;	»ù±¾ÊäÈëÊä³öÀı³Ì
+;	åŸºæœ¬è¾“å…¥è¾“å‡ºä¾‹ç¨‹
 ;*************************************************
 		
 %ifndef STDIO_INC
@@ -10,7 +10,7 @@
 
 ;=================================================
 ;
-;  16Î»ÊµÄ£Ê½Àı³Ì
+;  16ä½å®æ¨¡å¼ä¾‹ç¨‹
 ;
 ;=================================================
 		
@@ -37,16 +37,16 @@ Puts16Done:
 
 ;=================================================
 ;
-;  32Î»±£»¤Ä£Ê½Àı³Ì
+;  32ä½ä¿æŠ¤æ¨¡å¼ä¾‹ç¨‹
 ;
 ;=================================================
 
 bits 32
 
-%define		VIDMEM	0xB8000			; ÎÄ±¾Ä£Ê½µÄÏÔ´æ»ùÖ·
-%define		COLS	80			    ; Mode 7 µÄÁĞÊı
-%define		LINES	25              ; Mode 7 µÄĞĞÊı
-%define		CHAR_ATTRIB 0x15		; ±³¾°É«ÓëÇ°¾°É«
+%define		VIDMEM	0xB8000			; æ–‡æœ¬æ¨¡å¼çš„æ˜¾å­˜åŸºå€
+%define		COLS	80			    ; Mode 7 çš„åˆ—æ•°
+%define		LINES	25              ; Mode 7 çš„è¡Œæ•°
+%define		CHAR_ATTRIB 0x15		; èƒŒæ™¯è‰²ä¸å‰æ™¯è‰²
 
 		_CurX db 0					; current x location
 		_CurY db 0                  ; current y location
@@ -185,8 +185,8 @@ Puts32:
 ;   Update hardware cursor      ;
 ;-------------------------------;
 
-; ´òÓ¡ÍêÕû¸ö×Ö·û´®Ö®ºóÔÙÒ»´ÎĞÔ¸üĞÂ¹â±êÎ»ÖÃ¸üÓĞĞ§ÂÊ
-; ÒòÎªÖ±½Ó²Ù×÷VGAºÜÂı
+; æ‰“å°å®Œæ•´ä¸ªå­—ç¬¦ä¸²ä¹‹åå†ä¸€æ¬¡æ€§æ›´æ–°å…‰æ ‡ä½ç½®æ›´æœ‰æ•ˆç‡
+; å› ä¸ºç›´æ¥æ“ä½œVGAå¾ˆæ…¢
 
 		mov	bh, byte [_CurY]	; get current position
 		mov	bl, byte [_CurX]
@@ -210,7 +210,7 @@ MovCur:
 
 ;-------------------------------;
 ;   Get current position        ;
-;   ¶ÔCRTÎ¢¿ØÖÆÆ÷±à³Ì           ;
+;   å¯¹CRTå¾®æ§åˆ¶å™¨ç¼–ç¨‹           ;
 ;-------------------------------;
 
 ; Here, _CurX and _CurY are relitave to the current position on screen, not in memory.
@@ -228,13 +228,13 @@ MovCur:
 ;   Set low byte index to VGA register ;
 ;--------------------------------------;
 
-		mov	al, 0x0f       ; Ë÷Òı0xf±íÊ¾¹â±êÎ»ÖÃµÄµÍ×Ö½Ú
-		mov	dx, 0x03D4     ; Ğ´Ë÷Òı¼Ä´æÆ÷
+		mov	al, 0x0f       ; ç´¢å¼•0xfè¡¨ç¤ºå…‰æ ‡ä½ç½®çš„ä½å­—èŠ‚
+		mov	dx, 0x03D4     ; å†™ç´¢å¼•å¯„å­˜å™¨
 		out	dx, al
 
-		mov	al, bl         ; ¹â±êÎ»ÖÃµÄµÍ×Ö½Ú
-		mov	dx, 0x03D5     ; Ğ´Êı¾İ¼Ä´æÆ÷
-		out	dx, al		; Ğ´Èëlow byte
+		mov	al, bl         ; å…‰æ ‡ä½ç½®çš„ä½å­—èŠ‚
+		mov	dx, 0x03D5     ; å†™æ•°æ®å¯„å­˜å™¨
+		out	dx, al		; å†™å…¥low byte
 
 ;---------------------------------------;
 ;   Set high byte index to VGA register ;
@@ -242,12 +242,12 @@ MovCur:
 
 		xor	eax, eax
 
-		mov	al, 0x0e        ; Ë÷Òı0xe±íÊ¾¹â±êÎ»ÖÃµÄ¸ß×Ö½Ú
-		mov	dx, 0x03D4      ; Ğ´Ë÷Òı¼Ä´æÆ÷
+		mov	al, 0x0e        ; ç´¢å¼•0xeè¡¨ç¤ºå…‰æ ‡ä½ç½®çš„é«˜å­—èŠ‚
+		mov	dx, 0x03D4      ; å†™ç´¢å¼•å¯„å­˜å™¨
 		out	dx, al
 
-		mov	al, bh          ; ¹â±êÎ»ÖÃµÄ¸ß×Ö½Ú
-		mov	dx, 0x03D5      ; Ğ´Êı¾İ¼Ä´æÆ÷
+		mov	al, bh          ; å…‰æ ‡ä½ç½®çš„é«˜å­—èŠ‚
+		mov	dx, 0x03D5      ; å†™æ•°æ®å¯„å­˜å™¨
 		out	dx, al			; high byte
 
 		popa
@@ -265,15 +265,15 @@ ClrScr32:
 		pusha
 		cld
 		mov	edi, VIDMEM
-		mov	cx, 2000         ; È«ÆÁ¹²80 * 25 = 2000¸ö×Ö·û
+		mov	cx, 2000         ; å…¨å±å…±80 * 25 = 2000ä¸ªå­—ç¬¦
 		mov	ah, CHAR_ATTRIB
 		mov	al, ' '	
 		rep	stosw            ; ax => [edi], edi += 2
 
-		mov	byte [_CurX], 0  ; ¸´Î»µ±Ç°x×ø±ê
-		mov	byte [_CurY], 0  ; ¸´Î»µ±Ç°y×ø±ê
+		mov	byte [_CurX], 0  ; å¤ä½å½“å‰xåæ ‡
+		mov	byte [_CurY], 0  ; å¤ä½å½“å‰yåæ ‡
 
-		; ¸´Î»¹â±ê
+		; å¤ä½å…‰æ ‡
 		mov bl, byte [_CurX]  ; x
 		mov bh, byte [_CurY]  ; y
 		call MovCur

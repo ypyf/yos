@@ -1,6 +1,6 @@
 ;*************************************************
 ;	Gdt.inc
-; ¶¨ÒåÁËGDTÊı¾İºÍÒ»Ğ©Àı³Ì
+; å®šä¹‰äº†GDTæ•°æ®å’Œä¸€äº›ä¾‹ç¨‹
 ;*************************************************
 
 %ifndef GDT_INC
@@ -16,7 +16,7 @@ bits	16
 InstallGDT:
 	cli                  ; clear interrupts
 	pusha                ; save registers
-	lgdt 	[toc]        ; ÔØÈëGDT
+	lgdt 	[toc]        ; è½½å…¥GDT
 	sti	                 ; enable interrupts
 	popa                 ; restore registers
 	ret	                 ; All done!
@@ -39,7 +39,7 @@ gdt_begin:
 	db 0                ; base high
 
 ; data segment descriptor
-	dw 0FFFFh           ; limit low (Same as code)10:56 AM 7/8/2007
+	dw 0FFFFh           ; limit low (Same as code)
 	dw 0                ; base low
 	db 0                ; base middle
 	db 10010010b        ; access
@@ -47,14 +47,14 @@ gdt_begin:
 	db 0                ; base high
 gdt_end:
 
-; tocÖĞµÄÄÚÈİ½«ÔØÈëGDTR¼Ä´æÆ÷
-; GDTRÊÇÒ»¸ö48Î»¼Ä´æÆ÷(6¸ö×Ö½Ú),ÓÉGDTµÄ´óĞ¡(2¸ö×Ö½Ú)ºÍGDTµÄ»ùÖ·(4¸ö×Ö½Ú)×é³É
-; ×¢ÒâGDTR»ùÖ·²¿·Ö×î¸ßÒ»¸ö×Ö½Ú²»Ê¹ÓÃ(tocµÄµÚ6¸ö×Ö½Ú),ÓÃ0Ìî³ä
+; tocä¸­çš„å†…å®¹å°†è½½å…¥GDTRå¯„å­˜å™¨
+; GDTRæ˜¯ä¸€ä¸ª48ä½å¯„å­˜å™¨(6ä¸ªå­—èŠ‚),ç”±GDTçš„å¤§å°(2ä¸ªå­—èŠ‚)å’ŒGDTçš„åŸºå€(4ä¸ªå­—èŠ‚)ç»„æˆ
+; æ³¨æ„GDTRåŸºå€éƒ¨åˆ†æœ€é«˜ä¸€ä¸ªå­—èŠ‚ä¸ä½¿ç”¨(tocçš„ç¬¬6ä¸ªå­—èŠ‚),ç”¨0å¡«å……
 toc: 
-	dw gdt_end - gdt_begin - 1 	; GDT´óĞ¡(limit)
-	dd gdt_begin 				; GDT»ùÖ·
+	dw gdt_end - gdt_begin - 1 	; GDTå¤§å°(limit)
+	dd gdt_begin 				; GDTåŸºå€
 
-; ¶¨Òå¶ÎÃèÊö·ûÔÚGDTÖĞµÄÆ«ÒÆ,ÓÃÓÚÉèÖÃ±£»¤Ä£Ê½ÏÂµÄ¶ÎÑ¡ÔñÆ÷(±£´æÔÚ¶Î¼Ä´æÆ÷ÖĞ)
+; å®šä¹‰æ®µæè¿°ç¬¦åœ¨GDTä¸­çš„åç§»,ç”¨äºè®¾ç½®ä¿æŠ¤æ¨¡å¼ä¸‹çš„æ®µé€‰æ‹©å™¨(ä¿å­˜åœ¨æ®µå¯„å­˜å™¨ä¸­)
 %define NULL_DESC 0
 %define CODE_DESC 0x8
 %define DATA_DESC 0x10
